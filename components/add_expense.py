@@ -1,19 +1,25 @@
 import streamlit as st
-from utils.parser import parse_quick_add
+from utils.parser import parse_bulk_quick_add
 from database import add_transaction
 
 def render_add_expense():
     st.title("➕ Add Expense")
     
     st.subheader("🚀 Quick Add")
-    quick_input = st.text_input("Enter amount and description (e.g., '50 food', '120 taxi')", key="quick_add_input")
+    quick_input = st.text_area("Enter expenses (e.g., 'Friday\\nFood 20, 10\\nWater 5')", key="quick_add_input", height=150)
     
     if st.button("Add Fast", type="primary"):
         if quick_input:
             try:
-                data = parse_quick_add(quick_input)
-                add_transaction(**data)
-                st.success(f"Added: GH₵ {data['amount']} for {data['category']} ({data['description']})")
+                transactions = parse_bulk_quick_add(quick_input)
+                if not transactions:
+                    st.warning("Could not parse any amounts. Check your format.")
+                else:
+                    for data in transactions:
+                        add_transaction(**data)
+                    st.success(f"Successfully added {len(transactions)} expenses!")
+                    for t in transactions:
+                        st.write(f"- GH₵ {t['amount']} for {t['category']} ({t['description']}) on {t['date'][:10]}")
             except Exception as e:
                 st.error(f"Error parsing input: {str(e)}")
         else:

@@ -5,7 +5,7 @@ CATEGORY_MAP = {
     # Transport
     r'\b(uber|bolt|yango|stc|vip|trotro|taxi|transport|fuel|gas|petrol)\b': 'Transport',
     # Food
-    r'\b(kfc|food|restaurant|lunch|dinner|breakfast|snack|mcdonalds|burger|pizza|waakye|jollof|kenkey|banku|eatery)\b': 'Food',
+    r'\b(kfc|food|restaurant|lunch|dinner|breakfast|snack|mcdonalds|burger|pizza|waakye|jollof|kenkey|banku|eatery|drink|drinks|beverage)\b': 'Food',
     # Utilities
     r'\b(data|airtime|mtn|vodafone|telecel|at|airteltigo|ecg|water|electricity|bill|utility)\b': 'Utilities',
     # Groceries
